@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRADUACIÓN | UNSA MEDICINA 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta Conceptual: Dorado, Olivo oscuro e Ivory */
+            --accent-gold: #CFA249; 
+            --text-ivory: #FEFFE3; 
+            --bg-dark-olive: #0A0F0A; 
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- ARQUITECTURA BASE --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            color: var(--text-ivory);
+            line-height: 1.8; 
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            background-color: var(--bg-dark-olive); 
+        }
+
+        /* --- FONDO DE IMAGEN (2.png) LIMPIO Y ELEGANTE --- */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: url('2.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        /* Capa oscurecedora para asegurar lectura limpia sin saturar */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 15, 10, 0.75); 
+            z-index: -1;
+        }
+
+        /* --- TIPOGRAFÍA ALATA --- */
+        h1, h2, h3, h4, strong, .timeline-row span:first-child {
+            font-family: 'Alata', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: normal;
+            color: var(--text-ivory);
+        }
+
+        /* --- ANIMACIONES GENERALES --- */
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal-node { 
+            opacity: 0; 
+            animation: reveal 1.2s ease forwards; 
+        }
+
+        /* --- ANIMACIONES DE LOS CÍRCULOS --- */
+        @keyframes float1 {
+            0% { transform: translate(0px, 0px); }
+            50% { transform: translate(30px, -20px); }
+            100% { transform: translate(0px, 0px); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0px, 0px); }
+            50% { transform: translate(-25px, 25px); }
+            100% { transform: translate(0px, 0px); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0px, 0px); }
+            50% { transform: translate(15px, 30px); }
+            100% { transform: translate(0px, 0px); }
+        }
+
+        /* --- PORTADA Y CÍRCULOS ANIMADOS --- */
+        header {
+            position: relative;
+            min-height: 100vh;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            padding: 40px;
+            overflow: hidden; 
+        }
+
+        .header-circles {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        /* Clases de color y opacidad solicitadas */
+        .c-dark { background-color: rgba(29, 38, 15, 0.7); } /* #1D260F al 70% */
+        .c-light { background-color: rgba(54, 67, 32, 0.5); } /* #364320 al 50% */
+        .c-outline { border: 2px solid rgba(249, 245, 235, 0.5); background-color: transparent; } /* #F9F5EB al 50% */
+
+        /* Tamaños, posiciones y animaciones */
+        .c1 { width: 35vw; height: 35vw; top: -10%; left: -5%; animation: float1 14s ease-in-out infinite; }
+        .c2 { width: 15vw; height: 15vw; top: 15%; right: 10%; animation: float2 12s ease-in-out infinite; }
+        .c3 { width: 25vw; height: 25vw; bottom: -5%; right: -5%; animation: float3 16s ease-in-out infinite reverse; }
+        .c4 { width: 8vw; height: 8vw; top: 40%; left: 20%; animation: float1 10s ease-in-out infinite alternate; }
+        .c5 { width: 18vw; height: 18vw; bottom: 15%; left: 10%; animation: float2 18s ease-in-out infinite; }
+        .c6 { width: 12vw; height: 12vw; top: 25%; left: 60%; animation: float3 15s ease-in-out infinite; }
+
+        header div.reveal-node { 
+            position: relative; 
+            z-index: 10; 
+            max-width: 900px; 
+        }
+
+        header h1 { 
+            font-size: clamp(3rem, 10vw, 5.5rem); 
+            margin-bottom: 5px; 
+            letter-spacing: 8px;
+        }
+
+        header p { 
+            font-size: 1.2rem; 
+            letter-spacing: 12px; 
+            color: var(--accent-gold); 
+            font-weight: 300; 
+            margin-top: 25px; 
+        }
+
+        header hr { 
+            width: 80px; 
+            height: 2px; 
+            border: none; 
+            background: var(--accent-gold); 
+            margin: 35px auto; 
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            position: relative;
+            padding: 100px 20px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .intro-block { 
+            max-width: 800px; 
+            margin: 0 auto 80px; 
+            font-size: 1.3rem; 
+            font-weight: 300; 
+            line-height: 2.2; 
+        }
+        
+        .date-display {
+            display: inline-flex;
+            gap: 40px;
+            font-size: clamp(2.5rem, 11vw, 5rem);
+            padding: 30px 70px;
+            margin-bottom: 110px;
+            border-top: 1px solid rgba(207, 162, 73, 0.4); 
+            border-bottom: 1px solid rgba(207, 162, 73, 0.4);
+            font-weight: 300;
+        }
+
+        /* --- UBICACIÓN --- */
+        .location-box {
+            max-width: 850px;
+            margin: 0 auto 130px;
+        }
+
+        .location-box p { 
+            font-size: 1.2rem; 
+            margin-bottom: 45px; 
+            font-weight: 300;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 22px 70px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold); 
+            background: transparent; 
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            transition: var(--transition-smooth);
+            font-weight: 400;
+        }
+
+        .btn-gold:hover { 
+            background: var(--accent-gold); 
+            color: var(--bg-dark-olive); 
+        }
+
+        /* --- ITINERARIO UNIFORME --- */
+        .timeline-container {
+            max-width: 750px;
+            margin: 140px auto;
+            padding: 0 20px;
+        }
+
+        .timeline-container h3 { 
+            font-size: 2.5rem; 
+            margin-bottom: 80px; 
+            text-align: center; 
+            color: var(--accent-gold);
+        }
+
+        .timeline-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(254, 255, 227, 0.15);
+        }
+
+        .timeline-row span:first-child { 
+            font-weight: 600; 
+            min-width: 130px; 
+            text-align: left; 
+            color: var(--accent-gold);
+        }
+
+        .timeline-row span:last-child { 
+            text-align: right; 
+            font-weight: 300; 
+            font-size: 1.1rem; 
+            color: var(--text-ivory); 
+        }
+
+        /* --- SECCIÓN DE MENÚ --- */
+        .menu-section {
+            max-width: 800px;
+            margin: 140px auto 50px;
+            padding: 0 20px;
+        }
+
+        .menu-section h3 { 
+            font-size: 2.5rem; 
+            margin-bottom: 80px; 
+            text-align: center; 
+            color: var(--accent-gold);
+        }
+
+        .menu-block {
+            margin-bottom: 60px;
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(207, 162, 73, 0.2);
+            padding: 60px 40px;
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+        }
+
+        .menu-block h4 {
+            font-size: 1.4rem;
+            color: var(--text-ivory);
+            margin-bottom: 45px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 1px solid rgba(207, 162, 73, 0.3);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .menu-course {
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .menu-course strong {
+            display: block;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .menu-course p {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-ivory);
+            opacity: 0.9;
+        }
+        
+        .menu-list {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+        
+        .menu-list li {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-ivory);
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        /* --- RECOMENDACIONES --- */
+        .recs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .rec-item {
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(207, 162, 73, 0.2);
+            text-align: center;
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+        }
+
+        .rec-item strong { 
+            display: block; 
+            margin-bottom: 15px; 
+            font-size: 1rem; 
+            color: var(--accent-gold); 
+        }
+
+        .rec-item p { 
+            font-size: 0.95rem; 
+            font-weight: 300; 
+            color: var(--text-ivory); 
+            opacity: 0.9;
+        }
+
+        /* --- AUDIO --- */
+        #music-btn {
+            position: fixed; 
+            bottom: 40px; 
+            right: 40px; 
+            width: 70px; 
+            height: 70px;
+            border-radius: 50%; 
+            z-index: 5000; 
+            border: 1px solid var(--accent-gold);
+            background: rgba(0, 0, 0, 0.7); 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem;
+            transition: var(--transition-smooth); 
+            color: var(--text-ivory);
+            backdrop-filter: blur(8px);
+        }
+
+        #music-btn:hover { 
+            background: var(--accent-gold);
+            color: var(--bg-dark-olive);
+        }
+
+        footer { 
+            padding: 120px 20px; 
+            text-align: center; 
+            border-top: 1px solid rgba(254, 255, 227, 0.1); 
+        }
+
+        @media (max-width: 768px) {
+            .date-display { 
+                gap: 20px; 
+                padding: 25px 40px; 
+            }
+            .timeline-row span:first-child { min-width: 100px; font-size: 0.95rem; }
+            .timeline-row span:last-child { font-size: 0.95rem; }
+            .menu-block { padding: 40px 20px; }
+            .rec-item { padding: 40px 25px; }
+
+            /* Ajuste de círculos para móviles */
+            .c1 { width: 55vw; height: 55vw; }
+            .c2 { width: 25vw; height: 25vw; }
+            .c3 { width: 45vw; height: 45vw; }
+            .c5 { width: 35vw; height: 35vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="gradAudio" loop preload="auto" playsinline>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" onclick="gestionarMusica()">🔇</button>
+
+    <header>
+        <div class="header-circles">
+            <div class="circle c-dark c1"></div>
+            <div class="circle c-outline c2"></div>
+            <div class="circle c-light c3"></div>
+            <div class="circle c-outline c4"></div>
+            <div class="circle c-dark c5"></div>
+            <div class="circle c-light c6"></div>
+        </div>
+
+        <div class="reveal-node">
+            <h1>UNSA MEDICINA</h1>
+            <hr>
+            <p>GENERACIÓN 2026</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro-block reveal-node">
+            "Bajo la magia de una noche que quedará grabada en nuestra memoria, celebramos el cierre de un ciclo de esfuerzo y el comienzo de una nueva historia profesional."
+        </div>
+
+        <div class="date-display reveal-node">
+            <span>13</span> <span>06</span> <span>26</span>
+        </div>
+
+        <div class="location-box reveal-node">
+            <h3>RECEPCIÓN</h3>
+            <p>Condado del Valle<br>Estado de México</p>
+            <a href="https://www.google.com/maps/place/Salón+de+Eventos+Condado+del+Valle/@19.2744797,-99.6359916,16z/data=!4m10!1m2!2m1!1scondado+del+valle!3m6!1s0x85cd8b4c3ce43945:0x97a2c8b94447f7f5!8m2!3d19.2276648!4d-99.5643833!15sChFjb25kYWRvIGRlbCB2YWxsZZIBFmZ1bmN0aW9uX3Jvb21fZmFjaWxpdHngAQA!16s%2Fg%2F11fq1n_3rx?entry=ttu&g_ep=EgoyMDI2MDUyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-gold">Ver Ubicación</a>
+        </div>
+
+        <article class="timeline-container reveal-node">
+            <h3>Itinerario</h3>
+            <div class="timeline-row"><span>07:00 PM</span><span>RECEPCIÓN / SAX</span></div>
+            <div class="timeline-row"><span>08:00 PM</span><span>CENA / VIOLÍN</span></div>
+            <div class="timeline-row"><span>09:05 PM</span><span>PALABRAS</span></div>
+            <div class="timeline-row"><span>09:10 PM</span><span>BRINDIS</span></div>
+            <div class="timeline-row"><span>09:15 PM</span><span>SE ABRE PISTA</span></div>
+            <div class="timeline-row"><span>09:30 PM</span><span>CABINA ESPEJO</span></div>
+            <div class="timeline-row"><span>10:00 PM</span><span>CARRITO DE SHOTS / DR. SIMI Y ASTRONAUTA</span></div>
+            <div class="timeline-row"><span>11:30 PM</span><span>TORNAFIESTA (TACOS)</span></div>
+            <div class="timeline-row"><span>12:00 AM</span><span>AFTER / BANDA / BARRA DE BEBIDAS</span></div>
+            <div class="timeline-row"><span>01:30 AM</span><span>SORPRESA ANIMADA (HAMBURGUESAS Y SOPAS)</span></div>
+            <div class="timeline-row"><span>03:00 AM</span><span>FIN</span></div>
+            <div class="timeline-row"><span>03:00 AM</span><span>DESALOJO (03:00 AM - 04:00 AM)</span></div>
+        </article>
+
+        <article class="menu-section reveal-node">
+            <h3>Menú</h3>
+
+            <div class="menu-block">
+                <h4>Menú Principal</h4>
+                
+                <div class="menu-course">
+                    <strong>PRIMER TIEMPO</strong>
+                    <p>Ensalada de frutas con aderezo italiano</p>
+                </div>
+                
+                <div class="menu-course">
+                    <strong>SEGUNDO TIEMPO</strong>
+                    <p>Crema de zanahoria</p>
+                </div>
+                
+                <div class="menu-course">
+                    <strong>PLATO FUERTE</strong>
+                    <p>Lomo de cerdo en salsa de 4 chiles</p>
+                </div>
+                
+                <div class="menu-course">
+                    <strong>GUARNICIONES</strong>
+                    <p>Puré de papa<br>Vegetales rostizados</p>
+                </div>
+                
+                <div class="menu-course">
+                    <strong>POSTRE</strong>
+                    <p>Panacota de frutas</p>
+                </div>
+            </div>
+
+            <div class="menu-block">
+                <h4>Menú Vegano y Vegetariano</h4>
+                <ul class="menu-list">
+                    <li>Portobellos asados en sala de 4 chiles con puré de papa y vegetales rostizados</li>
+                </ul>
+            </div>
+
+            <div class="menu-block">
+                <h4>Menú Infantil</h4>
+                <ul class="menu-list">
+                    <li>Coctel de frutas</li>
+                    <li>Sliders de res con queso americano y papas a la francesa</li>
+                    <li>Brownie con helado de vainilla</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <aside class="recs-grid reveal-node">
+        <div class="rec-item">
+            <strong>CLIMA Y PROTECCIÓN</strong>
+            <p>Le sugerimos encarecidamente tomar precauciones e ir abrigados ante el clima del lugar.</p>
+        </div>
+        <div class="rec-item">
+            <strong>ACCESO ÚNICO</strong>
+            <p>Considere que el recinto cuenta con un solo acceso habilitado para la entrada.</p>
+        </div>
+        <div class="rec-item">
+            <strong>VALET PARKING</strong>
+            <p>Servicio externo a HC, con costo adicional por auto.</p>
+        </div>
+        <div class="rec-item">
+            <strong>ÁREAS DE FUMAR</strong>
+            <p>Recordamos que el consumo de tabaco está restringido exclusivamente a las áreas exteriores.</p>
+        </div>
+        <div class="rec-item">
+            <strong>MENÚS ESPECIALES</strong>
+            <p>Si requiere menú vegano, vegetariano o por alergias, solicítelo directamente con el comité organizador en la selección de mesas.</p>
+        </div>
+        <div class="rec-item">
+            <strong>KIT Y GUARDARROPA</strong>
+            <p>No hay servicio de guardarropa. El kit de graduado será entregado en la entrada.</p>
+        </div>
+    </aside>
+
+    <footer>
+        <h2 class="reveal-node">UNSA MEDICINA</h2>
+        <p class="reveal-node">GRADUACIÓN 2026</p>
+    </footer>
+
+    <script>
+        const audio = document.getElementById('gradAudio');
+        const btn = document.getElementById('music-btn');
+
+        function gestionarMusica() {
+            if (audio.paused) {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(error => {
+                        console.log("Interacción de audio bloqueada por el navegador");
+                    });
+                }
+            } else {
+                audio.pause();
+                btn.innerHTML = "🔇";
+            }
+        }
+
+        ['click', 'touchstart'].forEach(evt => {
+            document.body.addEventListener(evt, () => {
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(err => console.log("Audio en espera..."));
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
